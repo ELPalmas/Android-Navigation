@@ -1,5 +1,6 @@
 package com.example.variableentorno.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,6 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -26,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -35,8 +40,19 @@ import androidx.navigation.NavController
 @Composable
 fun Login (navController: NavController){
 
+    //Estado
+    // Es una variable que le da el valor a un Text (es lo que estara escrito
+    // en el campo)
     var email by remember { mutableStateOf("") }
+    var emailError by remember { mutableStateOf(false) }
+
     var password by remember { mutableStateOf("") }
+
+    fun isValidEmail (email:String): Boolean{
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    val isValidFormulario = email.isNotEmpty() && password.isNotEmpty()
 
     Column(
         modifier = Modifier
@@ -60,8 +76,12 @@ fun Login (navController: NavController){
 
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = {
+                email = it
+                emailError = !isValidEmail(email = it)
+                            },
             label = { Text("Email") },
+            isError = emailError,
             modifier = Modifier.width(300.dp),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedTextColor = Color(0xFF5E5CE6),
@@ -73,7 +93,10 @@ fun Login (navController: NavController){
 
         OutlinedTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = {
+                password = it
+
+                            },
             label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.width(300.dp),
@@ -94,13 +117,16 @@ fun Login (navController: NavController){
 
         Box(modifier = Modifier.height(16.dp))
 
-        Box(
+        Button(
+            onClick = {},
+            enabled = isValidFormulario,
             modifier = Modifier
                 .width(200.dp)
-                .height(55.dp)
-                .clip(RoundedCornerShape(50.dp))
-                .background(Color(0xFF5E5CE6)),
-            contentAlignment = Alignment.Center
+                .height(55.dp),
+            shape = RoundedCornerShape(50.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF5E5CE6)
+            )
         ) {
             Text(
                 text = "Log In",
@@ -113,26 +139,26 @@ fun Login (navController: NavController){
         Box(modifier = Modifier.height(10.dp))
 
         Text(
-            text = "or Sign Up",
+            text = "or Log In",
             fontSize = 18.sp,
             color = Color.Gray
         )
 
         Box(modifier = Modifier.height(10.dp))
 
-        Box(
+        OutlinedButton(
+            onClick = { navController.navigate("Register") },
             modifier = Modifier
                 .width(200.dp)
-                .height(55.dp)
-                .clip(RoundedCornerShape(50.dp))
-                .border(1.dp, Color(0xFF5E5CE6), RoundedCornerShape(50.dp))
-                .clickable {
-                    navController.navigate("Register")
-                },
-            contentAlignment = Alignment.Center
+                .height(55.dp),
+            shape = RoundedCornerShape(50.dp),
+            border = BorderStroke(1.dp, Color(0xFF5E5CE6)),
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = Color.Transparent
+            )
         ) {
             Text(
-                text = "Sign Up",
+                text = "Sing Up",
                 color = Color(0xFF5E5CE6),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium
