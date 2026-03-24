@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.*
 import com.example.variableentorno.screens.Login
 import com.example.variableentorno.screens.MainBody
+import com.example.variableentorno.screens.MainScreen
 import com.example.variableentorno.screens.Register
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +31,11 @@ class MainActivity : ComponentActivity() {
 
                     composable("home") {
                         MainBody(navController)
+                    }
+
+                    //n
+                    composable("screen") {
+                        MainScreen(navController)
                     }
 
                     composable("login") {
