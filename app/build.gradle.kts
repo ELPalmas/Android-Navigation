@@ -49,6 +49,9 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
+    // Changed from debugImplementation to implementation to resolve ClassNotFoundException in Preview
+    implementation(libs.androidx.compose.ui.tooling)
+
     implementation("androidx.navigation:navigation-compose:2.9.7")
 
     testImplementation(libs.junit)
@@ -56,6 +59,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

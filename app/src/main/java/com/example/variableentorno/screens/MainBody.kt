@@ -143,3 +143,4 @@ fun SingUpUsing(icon: Int) {
         modifier = Modifier.size(50.dp)
     )
 }
+

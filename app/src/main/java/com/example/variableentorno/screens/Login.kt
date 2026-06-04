@@ -118,7 +118,7 @@ fun Login (navController: NavController){
         Box(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = {navController.navigate("Register") },
+            onClick = {navController.navigate("screen") },
             enabled = isValidFormulario,
             modifier = Modifier
                 .width(200.dp)
@@ -166,3 +166,4 @@ fun Login (navController: NavController){
         }
     }
 }
+
